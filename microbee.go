@@ -37,6 +37,9 @@ type systemImpl[A any, B any] struct {
 	batchSize      int
 	linger         time.Duration
 
+	// Store a pending batch of submitted jobs in shared memory and lock access to it.
+	// Using a shared slice gives us flexability to use the jobs with our two
+	// triggers (batchSize and linger time)
 	pending  *batch[A, B]
 	mu       sync.Mutex
 	shutdown bool // if the system has shutdown
