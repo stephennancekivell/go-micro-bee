@@ -2,7 +2,6 @@ package gomicrobee
 
 import (
 	"errors"
-	"log"
 	"sync"
 	"time"
 )
@@ -119,7 +118,6 @@ func (s *systemImpl[A, B]) newBatch(firstValue jobValue[A, B]) *batch[A, B] {
 		select {
 		case <-timer.stopCh:
 		case <-timer.timer.C:
-			log.Print("time expired")
 			s.mu.Lock()
 			s.pending = nil
 			s.mu.Unlock()
